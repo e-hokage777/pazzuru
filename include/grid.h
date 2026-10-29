@@ -4,6 +4,8 @@
 #include "game_object.h"
 #include "input_manager.h"
 #include "glfw/glfw3.h"
+#include <algorithm>
+#include <random>
 
 class Grid : public GameObject
 {
@@ -39,6 +41,9 @@ public:
                 tiles.push_back(Tile(position, size, texCoords));
             }
         }
+
+        // shuffle tiles
+        shuffle();
     }
 
     void draw() override
@@ -63,16 +68,14 @@ public:
 
                     float distanceFromEmpty = glm::distance(tile.position, glm::vec2(emptySpace));
 
-                    std::cout << "dist: " << distanceFromEmpty << "  size: " << tile.size.x << std::endl; 
-
-                    if (distanceFromEmpty <= tile.size.x)
+                    if (distanceFromEmpty <= glm::distance(glm::vec2(emptySpace), glm::vec2(emptySpace) + glm::vec2(emptySpace.z, emptySpace.w)))
                     {
+                        // switch positions with empty
+                        glm::vec2 oldTilePosition = tile.position;
+                        tile.position = glm::vec2(emptySpace);
+                        emptySpace.x = oldTilePosition.x;
+                        emptySpace.y = oldTilePosition.y;
                     }
-                    // switch positions with empty
-                    glm::vec2 oldTilePosition = tile.position;
-                    tile.position = glm::vec2(emptySpace);
-                    emptySpace.x = oldTilePosition.x;
-                    emptySpace.y = oldTilePosition.y;
                 }
             }
         }
@@ -90,5 +93,28 @@ private:
         }
 
         return false;
+    }
+
+    void shuffle()
+    {
+        std::vector<glm::vec2> positions;
+
+        for (auto &tile : tiles)
+        {
+            positions.push_back(tile.position);
+        }
+
+        std::random_device rd;
+
+        // Initialize the Mersenne Twister engine with the seed
+        std::mt19937 g(rd());
+
+        // Shuffle the vector in place
+        std::shuffle(positions.begin(), positions.end(), g);
+
+        for (int i = 0; i < tiles.size(); ++i)
+        {
+            tiles[i].position = positions[i];
+        }
     }
 };
