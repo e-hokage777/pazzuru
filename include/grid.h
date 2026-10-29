@@ -2,6 +2,8 @@
 #include <vector>
 #include "tile.h"
 #include "game_object.h"
+#include "input_manager.h"
+#include "glfw/glfw3.h"
 
 class Grid : public GameObject
 {
@@ -11,6 +13,7 @@ public:
     int rows;
     int columns;
     float gap;
+    glm::vec4 emptySpace;
     std::vector<Tile> tiles;
 
     Grid(float width, float height, int rows, int columns, float gap = 5.0f) : width(width), height(height), rows(rows), columns(columns), gap(gap)
@@ -29,6 +32,7 @@ public:
 
                 if (r == rows - 1 && c == columns - 1)
                 {
+                    emptySpace = glm::vec4(position, size);
                     break;
                 }
 
@@ -37,11 +41,54 @@ public:
         }
     }
 
-    void draw()
+    void draw() override
     {
         for (auto &tile : tiles)
         {
             tile.draw();
         }
+    }
+
+    void update(float deltaTime) override
+    {
+        for (auto &tile : tiles)
+        {
+            if (InputManager::MouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT))
+            {
+                float mouseX = InputManager::GetMouseX();
+                float mouseY = InputManager::GetOpenGLMouseY();
+
+                if (checkTileClicked(tile, mouseX, mouseY))
+                {
+
+                    float distanceFromEmpty = glm::distance(tile.position, glm::vec2(emptySpace));
+
+                    std::cout << "dist: " << distanceFromEmpty << "  size: " << tile.size.x << std::endl; 
+
+                    if (distanceFromEmpty <= tile.size.x)
+                    {
+                    }
+                    // switch positions with empty
+                    glm::vec2 oldTilePosition = tile.position;
+                    tile.position = glm::vec2(emptySpace);
+                    emptySpace.x = oldTilePosition.x;
+                    emptySpace.y = oldTilePosition.y;
+                }
+            }
+        }
+    }
+
+private:
+    bool checkTileClicked(Tile tile, float x, float y)
+    {
+        if (tile.position.x < x &&
+            tile.position.x + tile.size.x > x &&
+            tile.position.y < y &&
+            tile.position.y + tile.size.y > y)
+        {
+            return true;
+        }
+
+        return false;
     }
 };

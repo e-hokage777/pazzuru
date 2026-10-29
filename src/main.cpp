@@ -6,6 +6,7 @@
 #include "tile.h"
 #include "sprite_renderer.h"
 #include "grid.h"
+#include "input_manager.h"
 
 int SCREEN_WIDTH = 800;
 int SCREEN_HEIGHT = 600;
@@ -51,10 +52,14 @@ int main()
     // instantiating game
     Game game = Game(800, 600, &scene);
 
+    // initializing input manager
+    InputManager::Initialize(window);
+
     float lastTime = 0;
     float deltaTime = 0;
     while (!glfwWindowShouldClose(window))
     {
+        glfwPollEvents();
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -66,8 +71,10 @@ int main()
         game.update(deltaTime);
         game.render();
 
-        glfwPollEvents();
+        
         glfwSwapBuffers(window);
+
+        InputManager::Update();
     }
 
     return 0;
