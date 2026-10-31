@@ -15,10 +15,12 @@ public:
     int rows;
     int columns;
     float gap;
+    bool solved;
     glm::vec4 emptySpace;
     std::vector<Tile> tiles;
+    std::vector<glm::vec2> targetPositions;
 
-    Grid(float width, float height, int rows, int columns, float gap = 5.0f) : width(width), height(height), rows(rows), columns(columns), gap(gap)
+    Grid(float width, float height, int rows, int columns, float gap = 5.0f) : width(width), height(height), rows(rows), columns(columns), gap(gap), solved(false)
     {
         for (int r = 0; r < rows; r++)
         {
@@ -39,6 +41,7 @@ public:
                 }
 
                 tiles.push_back(Tile(position, size, texCoords));
+                targetPositions.push_back(position);
             }
         }
 
@@ -77,6 +80,12 @@ public:
                         emptySpace.y = oldTilePosition.y;
                     }
                 }
+
+                solved = checkSolved();
+
+                if(solved){
+                    std::cout << "Solved" << std::endl;
+                }
             }
         }
     }
@@ -97,6 +106,8 @@ private:
 
     void shuffle()
     {
+        // TODO: better shuffling algorithm would be to move the empty space around
+        // current implentation may lead to unsolvable puzzles
         std::vector<glm::vec2> positions;
 
         for (auto &tile : tiles)
@@ -116,5 +127,18 @@ private:
         {
             tiles[i].position = positions[i];
         }
+    }
+
+    bool checkSolved()
+    {
+        for (int i = 0; i < tiles.size(); ++i)
+        {
+            if (glm::distance(tiles[i].position, targetPositions[i]) > 0.0000005)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 };

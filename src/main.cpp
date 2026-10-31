@@ -6,7 +6,10 @@
 #include "tile.h"
 #include "sprite_renderer.h"
 #include "grid.h"
+#include "text_renderer.h"
 #include "input_manager.h"
+#include "ft2build.h"
+#include FT_FREETYPE_H
 
 int SCREEN_WIDTH = 800;
 int SCREEN_HEIGHT = 600;
@@ -42,10 +45,12 @@ int main()
 
     // configurations
     glfwSetFramebufferSizeCallback(window, frameBufferSizeCallback);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // creating scene
-    Tile tile = Tile(glm::vec2(0.0f), glm::vec2(80.0f, 60.0f), glm::vec4(0.0f, 0.0f, 1.0f/10, 1.0f/10));
-    Grid grid = Grid(800, 600, 10, 10);
+    Tile tile = Tile(glm::vec2(0.0f), glm::vec2(80.0f, 60.0f), glm::vec4(0.0f, 0.0f, 1.0f / 10, 1.0f / 10));
+    Grid grid = Grid(800, 600, 2, 2);
     Scene scene = Scene();
     scene.add(&grid);
 
@@ -54,6 +59,9 @@ int main()
 
     // initializing input manager
     InputManager::Initialize(window);
+
+    // initializing text renderer
+    TextRenderer::init();
 
     float lastTime = 0;
     float deltaTime = 0;
@@ -71,7 +79,12 @@ int main()
         game.update(deltaTime);
         game.render();
 
-        
+        if (grid.solved)
+        {
+
+            TextRenderer::renderText(ResourceManager::GetShader("text"), "You win", 400.0f, 300.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
+        }
+
         glfwSwapBuffers(window);
 
         InputManager::Update();

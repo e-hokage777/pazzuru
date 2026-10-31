@@ -43,8 +43,17 @@ file(DOWNLOAD
     ${STB_INCLUDE_DIR}/stb_image.h
 )
 
+# ---------------------------------------------------------
+# 3. Fetch FreeType (truetype text rendering)
+# ---------------------------------------------------------
+FetchContent_Declare(
+    freetype
+    GIT_REPOSITORY https://github.com/freetype/freetype.git
+    GIT_TAG VER-2-14-3
+)
 
-FetchContent_MakeAvailable(glfw glm glad)
+
+FetchContent_MakeAvailable(glfw glm glad freetype)
 
 # Include GLAD's CMake functions
 add_subdirectory(${glad_SOURCE_DIR}/cmake glad_cmake)
@@ -61,5 +70,6 @@ find_package(OpenGL REQUIRED)
 
 
 add_executable(${PROJECT_NAME} ${EXEC_SOURCES})
-target_link_libraries(${PROJECT_NAME} PRIVATE glfw glad glm::glm OpenGL::GL)
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
+target_link_libraries(${PROJECT_NAME} PRIVATE glfw glad glm::glm OpenGL::GL freetype)
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include ${STB_INCLUDE_DIR})

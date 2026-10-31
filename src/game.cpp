@@ -4,12 +4,14 @@ Game::Game(int width, int height, Scene *scene) : width(width), height(height), 
 {
     // loading shaders
     ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.fs", nullptr, "sprite");
+    ResourceManager::LoadShader("shaders/text.vs", "shaders/text.fs", nullptr, "text");
     // loading textures
     ResourceManager::LoadTexture("assets/enze-fu-1.jpg", false, "puzzle");
 
     // setting up shadered matrices
     glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(width), 0.0f, static_cast<float>(height));
     ResourceManager::GetShader("sprite").uniformMat4("projection", projection);
+    ResourceManager::GetShader("text").uniformMat4("projection", projection);
 
     // initializing
     SpriteRenderer::initialize();
