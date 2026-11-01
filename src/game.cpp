@@ -1,4 +1,7 @@
 #include "game.h"
+#include "screen_manager.h"
+#include "gameplay_screen.h"
+#include "mainmenu_screen.h"
 
 Game::Game(int width, int height) : width(width), height(height), window(nullptr)
 {
@@ -23,6 +26,9 @@ Game::Game(int width, int height) : width(width), height(height), window(nullptr
 
     // initializing
     SpriteRenderer::initialize();
+
+    // creating screen manager
+    screenManager = ScreenManager();
 }
 
 void Game::render()
@@ -80,19 +86,20 @@ int Game::initWindowAndGL()
 
 void Game::run()
 {
-    // creating scene
-    Tile tile = Tile(glm::vec2(0.0f), glm::vec2(80.0f, 60.0f), glm::vec4(0.0f, 0.0f, 1.0f / 10, 1.0f / 10));
-    Grid grid = Grid(800, 600, 2, 2);
-    Scene scene = Scene();
-    scene.add(&grid);
+;
+    // screenManager.setScreen(std::make_unique<GamePlayScreen>(window));
+    screenManager.setScreen(std::make_unique<MainMenuScreen>(window));
+    // // creating scene
+    // // Tile tile = Tile(glm::vec2(0.0f), glm::vec2(80.0f, 60.0f), glm::vec4(0.0f, 0.0f, 1.0f / 10, 1.0f / 10));
+    // Grid grid = Grid(800, 600, 2, 2);
+    // Scene scene = Scene();
+    // scene.add(&grid);
 
     float lastTime = 0;
     float deltaTime = 0;
     while (!glfwWindowShouldClose(window))
     {
         glfwPollEvents();
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // getting time between frames
         float currentTime = (float)(glfwGetTime());
@@ -101,16 +108,8 @@ void Game::run()
 
         // update(deltaTime);
         // render();
-        scene.update(deltaTime);
-        scene.draw();
-
-        if (grid.solved)
-        {
-
-            TextRenderer::renderText(ResourceManager::GetShader("text"), "You win", 400.0f, 300.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
-        }
-
-        glfwSwapBuffers(window);
+        screenManager.update(deltaTime);
+        screenManager.render();
 
         InputManager::Update();
     }

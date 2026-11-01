@@ -5,7 +5,7 @@ include(FetchContent)
 
 project(pazzuru VERSION 1.0.0 LANGUAGES CXX C)
 
-file(GLOB EXEC_SOURCES "src/*.cpp")
+file(GLOB EXEC_SOURCES CONFIGURE_DEPENDS "src/*.cpp")
 
 #-----------------------------
 # Fetching external libraries
@@ -70,6 +70,7 @@ find_package(OpenGL REQUIRED)
 
 
 add_executable(${PROJECT_NAME} ${EXEC_SOURCES})
+target_compile_definitions(${PROJECT_NAME} PRIVATE GLFW_INCLUDE_NONE) ## prevent GLFW from including OpenGL headers
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 target_link_libraries(${PROJECT_NAME} PRIVATE glfw glad glm::glm OpenGL::GL freetype)
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include ${STB_INCLUDE_DIR})

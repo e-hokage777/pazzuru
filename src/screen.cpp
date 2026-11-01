@@ -1,6 +1,9 @@
 #include "screen.h"
 
-Screen::Screen(GLFWwindow *window) : window(window) {}
+Screen::Screen(GLFWwindow *window) : window(window)
+{
+    // create framebuffers and textures;
+}
 
 void Screen::clear()
 {
@@ -16,6 +19,14 @@ void Screen::swapBuffers()
 void Screen::render()
 {
     clear();
+    // ResourceManager::GetShader("screen").use();
     draw();
     swapBuffers();
 }
+
+void Screen::cleanUp()
+{
+}
+
+void Screen::update(float deltaTime) {}
+void Screen::draw() {}

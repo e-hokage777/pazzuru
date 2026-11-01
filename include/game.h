@@ -1,3 +1,4 @@
+#pragma once
 #include "resource_manager.h"
 #include "scene.h"
 #include "sprite_renderer.h"
@@ -9,6 +10,7 @@
 #include "grid.h"
 #include "text_renderer.h"
 #include "input_manager.h"
+#include "screen_manager.h"
 #include "ft2build.h"
 #include FT_FREETYPE_H
 
@@ -18,6 +20,8 @@ public:
     int width;
     int height;
     GLFWwindow *window;
+    ScreenManager screenManager;
+
     Game(int width, int height);
 
     void render();

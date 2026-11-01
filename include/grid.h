@@ -20,6 +20,8 @@ public:
     std::vector<Tile> tiles;
     std::vector<glm::vec2> targetPositions;
 
+    Grid() = default;
+
     Grid(float width, float height, int rows, int columns, float gap = 5.0f) : width(width), height(height), rows(rows), columns(columns), gap(gap), solved(false)
     {
         for (int r = 0; r < rows; r++)
@@ -83,7 +85,8 @@ public:
 
                 solved = checkSolved();
 
-                if(solved){
+                if (solved)
+                {
                     std::cout << "Solved" << std::endl;
                 }
             }

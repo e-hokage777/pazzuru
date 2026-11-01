@@ -1,5 +1,7 @@
+#pragma once
 #include "glad/gl.h"
 #include "GLFW/glfw3.h"
+#include "resource_manager.h"
 
 class Screen
 {
@@ -7,10 +9,11 @@ private:
     GLFWwindow *window;
     void clear();
     void swapBuffers();
-    void render();
-
-public:
+    
+    public:
     Screen(GLFWwindow *window);
     virtual void update(float deltaTime);
-    void draw();
+    virtual void cleanUp();
+    virtual void draw();
+    void render();
 };
