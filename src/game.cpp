@@ -84,16 +84,29 @@ int Game::initWindowAndGL()
     return 0;
 }
 
+void Game::setState(State newState)
+{
+    state = newState;
+
+    // if (state == State::GAME_STARTED)
+    // {
+    //     screenManager.setScreen(std::make_unique<GamePlayScreen>(window));
+    // }
+    switch (state)
+    {
+    case State::GAME_STARTED:
+        screenManager.setScreen(std::make_unique<GamePlayScreen>(window));
+        break;
+    case State::MAIN_MENU:
+        screenManager.setScreen(std::make_unique<MainMenuScreen>(window, this));
+        break;
+    }
+}
+
 void Game::run()
 {
-;
-    // screenManager.setScreen(std::make_unique<GamePlayScreen>(window));
-    screenManager.setScreen(std::make_unique<MainMenuScreen>(window));
-    // // creating scene
-    // // Tile tile = Tile(glm::vec2(0.0f), glm::vec2(80.0f, 60.0f), glm::vec4(0.0f, 0.0f, 1.0f / 10, 1.0f / 10));
-    // Grid grid = Grid(800, 600, 2, 2);
-    // Scene scene = Scene();
-    // scene.add(&grid);
+
+    screenManager.setScreen(std::make_unique<MainMenuScreen>(window, this));
 
     float lastTime = 0;
     float deltaTime = 0;

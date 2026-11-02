@@ -22,13 +22,22 @@ public:
     GLFWwindow *window;
     ScreenManager screenManager;
 
+    enum State
+    {
+        MAIN_MENU,
+        GAME_STARTED,
+        GAME_PAUSED
+    };
+
     Game(int width, int height);
 
     void render();
     void update(float deltaTime);
     void run();
+    void setState(State state);
 
 private:
     static void frameBufferSizeCallback(GLFWwindow *window, int width, int height);
     int initWindowAndGL();
+    State state;
 };
