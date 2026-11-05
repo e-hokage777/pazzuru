@@ -8,6 +8,7 @@ class MainMenuScreen : public Screen
 {
 public:
     Button startButton;
+    Button quitButton;
     void draw() override;
     void update(float deltaTime) override;
     Game *game;

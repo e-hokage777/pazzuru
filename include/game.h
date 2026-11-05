@@ -35,6 +35,7 @@ public:
     void update(float deltaTime);
     void run();
     void setState(State state);
+    void quit();
 
 private:
     static void frameBufferSizeCallback(GLFWwindow *window, int width, int height);

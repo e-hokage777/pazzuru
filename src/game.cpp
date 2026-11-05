@@ -127,3 +127,8 @@ void Game::run()
         InputManager::Update();
     }
 }
+
+void Game::quit(){
+    glfwSetWindowShouldClose(window, true);
+    glfwTerminate();
+}
