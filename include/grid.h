@@ -10,6 +10,7 @@
 class Grid : public GameObject
 {
 public:
+    float x, y;
     float width;
     float height;
     int rows;
@@ -22,7 +23,7 @@ public:
 
     Grid() = default;
 
-    Grid(float width, float height, int rows, int columns, float gap = 5.0f) : width(width), height(height), rows(rows), columns(columns), gap(gap), solved(false)
+    Grid(float x, float y, float width, float height, int rows, int columns, float gap = 5.0f) : x(x), y(y), width(width), height(height), rows(rows), columns(columns), gap(gap), solved(false)
     {
         for (int r = 0; r < rows; r++)
         {
@@ -38,11 +39,11 @@ public:
 
                 if (r == rows - 1 && c == columns - 1)
                 {
-                    emptySpace = glm::vec4(position, size);
+                    emptySpace = glm::vec4(position + glm::vec2(x,y), size);
                     break;
                 }
 
-                tiles.push_back(Tile(position, size, texCoords));
+                tiles.push_back(Tile(position + glm::vec2(x,y), size, texCoords));
                 targetPositions.push_back(position);
             }
         }

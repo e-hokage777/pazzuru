@@ -2,6 +2,7 @@
 #include "screen_manager.h"
 #include "gameplay_screen.h"
 #include "mainmenu_screen.h"
+#include "ui_renderer.h"
 
 Game::Game(int width, int height) : width(width), height(height), window(nullptr)
 {
@@ -16,16 +17,20 @@ Game::Game(int width, int height) : width(width), height(height), window(nullptr
     ResourceManager::LoadShader("shaders/screen.vs", "shaders/screen.fs", nullptr, "screen");
     ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.fs", nullptr, "sprite");
     ResourceManager::LoadShader("shaders/text.vs", "shaders/text.fs", nullptr, "text");
+    ResourceManager::LoadShader("shaders/ui.vs", "shaders/ui.fs", nullptr, "ui");
     // loading textures
     ResourceManager::LoadTexture("assets/enze-fu-1.jpg", false, "puzzle");
+    ResourceManager::LoadTexture("assets/pazzuru-background.jpg", false, "background");
 
     // setting up shadered matrices
     glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(width), 0.0f, static_cast<float>(height));
     ResourceManager::GetShader("sprite").uniformMat4("projection", projection);
     ResourceManager::GetShader("text").uniformMat4("projection", projection);
+    ResourceManager::GetShader("ui").uniformMat4("projection", projection);
 
     // initializing
     SpriteRenderer::initialize();
+    UIRenderer::initialize();
 
     // creating screen manager
     screenManager = ScreenManager();

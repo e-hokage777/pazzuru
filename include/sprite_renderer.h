@@ -14,5 +14,5 @@ private:
 
 public:
     static void initialize();
-    static void draw(Texture sprite, glm::vec2 position, glm::vec2 size, glm::vec4 texCoords = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+    static void draw(Texture sprite, glm::vec2 position, glm::vec2 size, glm::vec4 texCoords = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), glm::vec3 spriteColor = glm::vec3(1.0f));
 };

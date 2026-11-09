@@ -66,7 +66,7 @@ void SpriteRenderer::initialize()
     shader = ResourceManager::GetShader("sprite");
 }
 
-void SpriteRenderer::draw(Texture sprite, glm::vec2 position, glm::vec2 size, glm::vec4 texCoord)
+void SpriteRenderer::draw(Texture sprite, glm::vec2 position, glm::vec2 size, glm::vec4 texCoord, glm::vec3 spriteColor)
 {
 
     glm::mat4 model = glm::mat4(1.0f);
@@ -83,6 +83,7 @@ void SpriteRenderer::draw(Texture sprite, glm::vec2 position, glm::vec2 size, gl
     shader.uniformMat4("model", model);
     shader.setTexUnit(0, sprite.ID, "sampler", GL_TEXTURE_2D);
     shader.uniformVec4("uvRect", texCoord);
+    shader.uniformVec3("spriteColor", spriteColor);
 
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
