@@ -16,6 +16,7 @@
 
 #include "texture.h"
 #include "shader.h"
+#include "raylib.h"
 
 
 // A static singleton ResourceManager class that hosts several
