@@ -71,7 +71,7 @@ void UIRenderer::initialize()
     shader = ResourceManager::GetShader("ui");
 }
 
-void UIRenderer::draw(glm::vec2 position, glm::vec2 size, glm::vec3 color)
+void UIRenderer::draw(glm::vec2 position, glm::vec2 size, glm::vec4 color)
 {
 
     glm::mat4 model = glm::mat4(1.0f);
@@ -84,7 +84,7 @@ void UIRenderer::draw(glm::vec2 position, glm::vec2 size, glm::vec3 color)
 
     // configuring shader
     shader.use();
-    shader.uniformVec3("color", color);
+    shader.uniformVec4("color", color);
 
     shader.uniformMat4("model", model);
     // shader.setTexUnit(0, sprite.ID, "sampler", GL_TEXTURE_2D);

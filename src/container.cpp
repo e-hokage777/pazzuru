@@ -1,8 +1,8 @@
 #include "container.h"
 #include "ui_renderer.h"
 
-Container::Container(float x, float y, float width, float height, glm::vec3 bgColor) : UIElement(x, y, width, height), bgColor(bgColor) {}
-Container::Container(float x, float y, float width, float height, Texture sprite, glm::vec3 bgColor) : Container(x, y, width, height, bgColor)
+Container::Container(float x, float y, float width, float height, glm::vec4 bgColor) : UIElement(x, y, width, height), bgColor(bgColor) {}
+Container::Container(float x, float y, float width, float height, Texture sprite, glm::vec4 bgColor) : Container(x, y, width, height, bgColor)
 {
     this->sprite = sprite;
     useSprite = true;

@@ -9,12 +9,12 @@
 class Container : public UIElement
 {
 public:
-    glm::vec3 bgColor;
+    glm::vec4 bgColor;
     Texture sprite;
     bool useSprite = false;
     Container() = default;
-    Container(float x, float y, float width, float height, glm::vec3 bgColor = glm::vec3(1.0f, 1.0f, 1.0f));
-    Container(float x, float y, float width, float height, Texture sprite, glm::vec3 bgColor = glm::vec3(1.0f, 1.0f, 1.0f));
+    Container(float x, float y, float width, float height, glm::vec4 bgColor = glm::vec4(1.0f, 1.0f, 1.0f, 0.0f));
+    Container(float x, float y, float width, float height, Texture sprite, glm::vec4 bgColor = glm::vec4(1.0f, 1.0f, 1.0f, 0.0f));
     void add(std::unique_ptr<UIElement> child, float px = 0, float py = 0);
     void update(float deltaTime) override;
     void draw() override;

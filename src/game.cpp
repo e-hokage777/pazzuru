@@ -21,6 +21,7 @@ Game::Game(int width, int height) : width(width), height(height), window(nullptr
     // loading textures
     ResourceManager::LoadTexture("assets/enze-fu-1.jpg", false, "puzzle");
     ResourceManager::LoadTexture("assets/pazzuru-background.jpg", false, "background");
+    ResourceManager::LoadTexture("assets/pazzuru-mainmenu-background.png", false, "mm-background");
 
     // setting up shadered matrices
     glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(width), 0.0f, static_cast<float>(height));

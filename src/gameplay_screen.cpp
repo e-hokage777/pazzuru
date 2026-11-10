@@ -2,18 +2,17 @@
 
 GamePlayScreen::GamePlayScreen(GLFWwindow *window) : Screen(window)
 {
-    grid = Grid(100, 100, 600, 400, 2, 2);
+    grid = Grid(100, 100, 600, 400, 5, 5);
     statusEl = Container(0.0f, 0.0f, 50.0f, 50.0f);
     auto text = std::make_unique<Text>(
         0, 0, 1.0f, std::to_string(grid.moves),
         glm::vec3(0.0f, 1.0f, 0.0f));
     moveCount = text.get();
-    topNav = Container(100.0f, 520.0f, 600.0f, 70.0f, glm::vec3(1.0f, 0.0f, 0.89f));
+    topNav = Container(100.0f, 520.0f, 600.0f, 70.0f);
+    topNav.add(std::make_unique<Container>(0.0f, 0.0f, 50.0f, 50.0f, glm::vec4(1.0f)));
     topNav.add(std::move(text));
-    topNav.add(std::make_unique<Container>(0.0f, 0.0f, 50.0f, 50.0f));
-    topNav.add(std::make_unique<Container>(0.0f, 0.0f, 50.0f, 50.0f));
-    topNav.add(std::make_unique<Container>(0.0f, 0.0f, 50.0f, 50.0f));
-    background = Container(0, 0, 800, 600, ResourceManager::GetTexture("background"), glm::vec3(0.3f));
+    topNav.add(std::make_unique<Container>(0.0f, 0.0f, 50.0f, 50.0f, ResourceManager::GetTexture("puzzle")));
+    background = Container(0, 0, 800, 600, ResourceManager::GetTexture("background"), glm::vec4(0.3f, 0.3f, 0.3f, 1.0f));
 }
 
 void GamePlayScreen::update(float deltaTime)
