@@ -19,7 +19,7 @@ Game::Game(int width, int height) : width(width), height(height), window(nullptr
     ResourceManager::LoadShader("shaders/text.vs", "shaders/text.fs", nullptr, "text");
     ResourceManager::LoadShader("shaders/ui.vs", "shaders/ui.fs", nullptr, "ui");
     // loading textures
-    ResourceManager::LoadTexture("assets/enze-fu-1.jpg", false, "puzzle");
+    ResourceManager::LoadTexture("assets/larabanga.jpg", false, "puzzle");
     ResourceManager::LoadTexture("assets/pazzuru-background.jpg", false, "background");
     ResourceManager::LoadTexture("assets/pazzuru-mainmenu-background.png", false, "mm-background");
 
