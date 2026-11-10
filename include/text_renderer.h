@@ -32,7 +32,7 @@ public:
             return;
         }
         // create face
-        if (FT_New_Face(ft, "fonts/robus.otf", 0, &face))
+        if (FT_New_Face(ft, "fonts/Ubuntu-Bold.ttf", 0, &face))
         {
             std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
             return;

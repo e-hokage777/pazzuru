@@ -3,15 +3,17 @@
 #include "grid.h"
 #include "text_renderer.h"
 #include "resource_manager.h"
-#include "ui_element.h"
+#include "container.h"
+#include "ui_text.h"
 
 class GamePlayScreen : public Screen
 {
 private:
     Grid grid;
-    UIElement topNav;
-    UIElement statusEl;
-    UIElement background;
+    Container topNav;
+    Container statusEl;
+    Container background;
+    Text *moveCount;
 
 public:
     GamePlayScreen(GLFWwindow *window);

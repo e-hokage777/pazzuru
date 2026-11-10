@@ -17,6 +17,7 @@ public:
     int columns;
     float gap;
     bool solved;
+    int moves = 0;
     glm::vec4 emptySpace;
     std::vector<Tile> tiles;
     std::vector<glm::vec2> targetPositions;
@@ -71,6 +72,9 @@ public:
 
                 if (checkTileClicked(tile, mouseX, mouseY))
                 {
+                    // update moves
+                    moves += 1;
+
 
                     float distanceFromEmpty = glm::distance(tile.position, glm::vec2(emptySpace));
 

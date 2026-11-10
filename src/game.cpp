@@ -59,7 +59,7 @@ int Game::initWindowAndGL()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    window = glfwCreateWindow(width, height, "My Game", NULL, NULL);
+    window = glfwCreateWindow(width, height, "Pazzuru", NULL, NULL);
 
     if (!window)
     {
@@ -93,10 +93,6 @@ void Game::setState(State newState)
 {
     state = newState;
 
-    // if (state == State::GAME_STARTED)
-    // {
-    //     screenManager.setScreen(std::make_unique<GamePlayScreen>(window));
-    // }
     switch (state)
     {
     case State::GAME_STARTED:
