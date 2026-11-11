@@ -8,5 +8,7 @@ public:
     UIElement(float x, float y, float width, float height) : x(x), y(y), width(width), height(height) {}
     virtual void update(float deltaTime){};
     virtual void draw(){};
+    virtual void onClick();
+    virtual void onMouseOver();
     virtual ~UIElement() = default;
 };
