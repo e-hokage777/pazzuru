@@ -52,29 +52,7 @@ FetchContent_Declare(
     GIT_TAG VER-2-14-3
 )
 
-FetchContent_Declare(
-    raylib
-    GIT_REPOSITORY https://github.com/raysan5/raylib.git
-    GIT_TAG        6.2
-)
-
-# --- STRIP RAYLIB DOWN TO AUDIO ONLY ---
-set(CUSTOMIZE_BUILD ON CACHE BOOL "" FORCE)
-set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-
-# Disable graphic modules
-set(SUPPORT_MODULE_RCORE OFF CACHE BOOL "" FORCE)
-set(SUPPORT_MODULE_RSHAPES OFF CACHE BOOL "" FORCE)
-set(SUPPORT_MODULE_RTEXTURES OFF CACHE BOOL "" FORCE)
-set(SUPPORT_MODULE_RTEXT OFF CACHE BOOL "" FORCE)
-set(SUPPORT_MODULE_RMODELS OFF CACHE BOOL "" FORCE)
-
-# Ensure standalone audio mode is active
-set(SUPPORT_MODULE_RAUDIO ON CACHE BOOL "" FORCE)
-
-
-FetchContent_MakeAvailable(glm glad freetype raylib)
-# FetchContent_MakeAvailable(glfw glm glad freetype raylib)
+FetchContent_MakeAvailable(glfw glm glad freetype)
 
 # Include GLAD's CMake functions
 add_subdirectory(${glad_SOURCE_DIR}/cmake glad_cmake)
@@ -93,5 +71,5 @@ find_package(OpenGL REQUIRED)
 add_executable(${PROJECT_NAME} ${EXEC_SOURCES})
 target_compile_definitions(${PROJECT_NAME} PRIVATE GLFW_INCLUDE_NONE) ## prevent GLFW from including OpenGL headers
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
-target_link_libraries(${PROJECT_NAME} PRIVATE glfw glad glm::glm OpenGL::GL freetype raylib)
+target_link_libraries(${PROJECT_NAME} PRIVATE glfw glad glm::glm OpenGL::GL freetype)
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include ${STB_INCLUDE_DIR})

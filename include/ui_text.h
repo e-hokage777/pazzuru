@@ -15,6 +15,11 @@ public:
     Text(float x, float y, float scale, std::string text, glm::vec3 color = glm::vec3(0.0f)) : UIElement(x, y, 1, 1), text(text), color(color), scale(scale)
     {
         shader = ResourceManager::GetShader("text");
+        width = 0.0f;
+        for (char c : this->text)
+        {
+            width += (TextRenderer::Characters.at(c).Advance >> 6) * scale;
+        }
     }
 
     void draw() override

@@ -15,14 +15,13 @@ public:
     Container() = default;
     Container(float x, float y, float width, float height, glm::vec4 bgColor = glm::vec4(1.0f, 1.0f, 1.0f, 0.0f));
     Container(float x, float y, float width, float height, Texture sprite, glm::vec4 bgColor = glm::vec4(1.0f, 1.0f, 1.0f, 0.0f));
-    void add(std::unique_ptr<UIElement> child, float px = 0, float py = 0);
+    virtual void add(std::unique_ptr<UIElement> child, float px = 0, float py = 0);
     void update(float deltaTime) override;
     void draw() override;
 
-private:
-    std::vector<std::unique_ptr<UIElement>> children;
 
 protected:
-    void drawChildren();
-    void updateChildren(float deltaTime);
+std::vector<std::unique_ptr<UIElement>> children;
+virtual void drawChildren();
+virtual void updateChildren(float deltaTime);
 };

@@ -25,6 +25,7 @@ public:
     enum State
     {
         MAIN_MENU,
+        LEVEL_SELECTION,
         GAME_STARTED,
         GAME_PAUSED
     };

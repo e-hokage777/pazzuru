@@ -2,6 +2,7 @@
 #include "screen_manager.h"
 #include "gameplay_screen.h"
 #include "mainmenu_screen.h"
+#include "level_selection_screen.h"
 #include "ui_renderer.h"
 
 Game::Game(int width, int height) : width(width), height(height), window(nullptr)
@@ -102,6 +103,9 @@ void Game::setState(State newState)
     case State::MAIN_MENU:
         screenManager.setScreen(std::make_unique<MainMenuScreen>(window, this));
         break;
+    case State::LEVEL_SELECTION:
+        screenManager.setScreen(std::make_unique<LevelSelectionScreen>(window, this));
+        break;
     }
 }
 
@@ -130,7 +134,8 @@ void Game::run()
     }
 }
 
-void Game::quit(){
+void Game::quit()
+{
     glfwSetWindowShouldClose(window, true);
     glfwTerminate();
 }

@@ -11,6 +11,7 @@ private:
     void swapBuffers();
     
     public:
+    Screen() = default;
     Screen(GLFWwindow *window);
     virtual void update(float deltaTime);
     virtual void cleanUp();

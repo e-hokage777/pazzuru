@@ -6,7 +6,7 @@ MainMenuScreen::MainMenuScreen(GLFWwindow *window, Game *game) : Screen(window),
                          glm::vec2(200.0f, 100.0f),
                          "Start Game",
                          [game]()
-                         { game->setState(Game::State::GAME_STARTED); });
+                         { game->setState(Game::State::LEVEL_SELECTION); });
     quitButton = Button(glm::vec2(400.0f, 250.0f),
                         glm::vec2(200.0f, 100.0f),
                         "Quit",
